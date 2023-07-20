@@ -1,6 +1,6 @@
 ---
 title: "linear model from Web"
-author: "Your Name"
+author: "Seth Guzman"
 date: "Put semester and year"
 output:
    html_document:
