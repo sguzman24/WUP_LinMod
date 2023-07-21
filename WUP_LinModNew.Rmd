@@ -103,19 +103,27 @@ As GRIP increases in value SIMS increases alongside it linearly as shown by the 
 ```{r}
 cor(SIMS~GRIP,data=data)
 ```
-
+SIMS and GRIP have a correlation of .63 proving they are linked together
 ### Inferential  (Build model.2)
 ```{r}
 model.2 <- lm(SIMS~GRIP,data)
 summary.lm(model.2)
 ```
 
+both $b_0$ (intercept) and $b_1$ (coefficeient) of GRIP strength are significant  due to the small p value of both (<2e-16)
+
+
 #### predict model.2 at target point
 
 ```{r}
-newdata = data.frame(ARM=88, GRIP=94)
+newdata = data.frame(SIMS=88, GRIP=94)
 predict(model.2, newdata, interval="predict")
 ```
+
+
+
+The prediction interval for arm strength ranges from as low as -3.107 to 2.035
+
 
 #### now add the model fit to our plot for model.2
   
@@ -123,19 +131,55 @@ predict(model.2, newdata, interval="predict")
 
 ## Model 3 SIM~ARM+GRIP
 
-### Numerical results (cor)
+## Numerical results
+```{r}
+cor(SIMS~ARM+GRIP, data = data)
+```
 
+The correlation is .73 proving ARM+GRIP is related to SIMS score.
+## Inferential Results
+
+```{r}
+model.3 <- lm(SIMS~ARM+GRIP,data)
+print(summary(model.3))
+```
 `
-  
-### Inferential  (Build 2-dimentional model.3)
 
-#### predict model.3 at target point
+
+ARM and GRIP are both closely related because both of there coefficient p value is extremely small.
+
   
+## Prediction Interval
+
+```{r}
+newdata = data.frame(ARM= 88 , GRIP=94)
+predict(model.3, newdata, interval = "predict")
+```
+
+The prediction interval is from as low as -2.132373 to as high as 2.431668 for SIM score
 
 ## Comparing nested models ANOVA Test
 
 ### Model.1 vs Model.3
+
+```{r}
+anova(model.3,model.1)
+```
+
+i reject the null hypothesis because of how low the p value is (.0000049). model 1 is better then model 2 because of model 1 rss score being lower then model 2
+
 ### Model.2 vs Model.3
 
-## Informally compare Model.1 with model.2
+
+```{r}
+anova(model.3,model.2)
+```
+
+model three has a lower rss score then model two therefore making it a smaller model.
+
+## Discussion and Conclusion 
+
+Through comparing models to each other ive found model 3 to be the best because it has a smalller rss score then all the models
+
+
 
