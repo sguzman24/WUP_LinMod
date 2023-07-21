@@ -84,31 +84,38 @@ the prediction interval is from -1.726209 to 3.138977 for SIMS score.
 
 
 
-### scatterplot
-
-### Numerical results
-
-
-### Inferential  (Build model.1)
-
-#### Predict at target point
-
-
-#### scatterplot with model fit
-  
 
 ## Model 2 SIM~GRIP
 
 ### Now add in scatterplot
 
+```{r}
+model.2 <- lm(SIMS~GRIP,data)
+plot(SIMS~GRIP,data=data)
+abline(model.2, col='red')
+```
+
+
+As GRIP increases in value SIMS increases alongside it linearly as shown by the points
+
 
 ### Numerical results 
-
+```{r}
+cor(SIMS~GRIP,data=data)
+```
 
 ### Inferential  (Build model.2)
-  
+```{r}
+model.2 <- lm(SIMS~GRIP,data)
+summary.lm(model.2)
+```
 
 #### predict model.2 at target point
+
+```{r}
+newdata = data.frame(ARM=88, GRIP=94)
+predict(model.2, newdata, interval="predict")
+```
 
 #### now add the model fit to our plot for model.2
   
